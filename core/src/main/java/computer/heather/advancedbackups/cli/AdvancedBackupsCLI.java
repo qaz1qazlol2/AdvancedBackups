@@ -50,9 +50,9 @@ public class AdvancedBackupsCLI {
         System.out.flush();
 
 
-        CLIIOHelpers.info("Advanced Backups - Version " + AdvancedBackupsCLI.class.getPackage().getImplementationVersion());
-        CLIIOHelpers.info("Note : this cannot restore backups made prior to the 3.0 release.");
-        CLIIOHelpers.info("Searching for properties...", false);
+        CLIIOHelpers.info("Advanced Backups - 版本 " + AdvancedBackupsCLI.class.getPackage().getImplementationVersion());
+        CLIIOHelpers.info("提示 : 这个模组不可以恢复AdvancedBackups3.0版本前的备份.");
+        CLIIOHelpers.info("寻找配置文件中...", false);
 
 
         Properties props = new Properties();
@@ -65,24 +65,24 @@ public class AdvancedBackupsCLI {
             backupLocation = props.getProperty("config.advancedbackups.path");
             type = props.getProperty("config.advancedbackups.type");
         } catch (Exception e) {
-            CLIIOHelpers.error("ERROR LOADING PROPERTIES!");
+            CLIIOHelpers.error("在加载配置文件时出错了！");
             CLIIOHelpers.error(getStackTrace(e));
             CLIIOHelpers.error("");
             CLIIOHelpers.error("");
-            CLIIOHelpers.error("Ensure you're running this from within the mods directory, and the config file is in the parent directory!");
+            CLIIOHelpers.error("确保你是在mods文件夹里面运行的这个软件，而且配置文件在主目录下方！");
             // Fatal, cannot proceed
             return;
         }
 
         if (backupLocation == null || type == null) {
-            CLIIOHelpers.error("ERROR LOADING PROPERTIES!");
-            CLIIOHelpers.error("Backup location : " + backupLocation);
-            CLIIOHelpers.error("Type : " + type);
+            CLIIOHelpers.error("在加载配置文件时出错了！");
+            CLIIOHelpers.error("备份位置 : " + backupLocation);
+            CLIIOHelpers.error("备份类型 : " + type);
             // Fatal, cannot proceed
             return;
         }
 
-        CLIIOHelpers.info("Config loaded!");
+        CLIIOHelpers.info("配置文件已经加载！");
 
         //What's a good way to check between absolute and relative? Not all absolute paths will start with /..
         File backupDir = new File(serverDir, backupLocation.replaceAll(Pattern.quote("." + File.separator), ""));
@@ -91,9 +91,9 @@ public class AdvancedBackupsCLI {
             //Is it absolute?
             backupDir = new File(backupLocation.replaceAll(Pattern.quote("." + File.separator), ""));
             if (!backupDir.exists()) {
-                CLIIOHelpers.error("Could not find backup directory!");
+                CLIIOHelpers.error("找不到备份文件夹！");
                 CLIIOHelpers.error(backupDir.getAbsolutePath());
-                CLIIOHelpers.error("Have you made any backups before?");
+                CLIIOHelpers.error("你之前做过备份吗？");
                 //Fatal, cannot continue
                 return;
             }
