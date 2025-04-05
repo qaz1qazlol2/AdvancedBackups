@@ -9,7 +9,6 @@ plugins {
 apply from: '../../global.properties'
 
 group = mod_group_id
-version = 3.7.1
 
 base {
     archivesName = 'AdvancedBackups-' + modloaderName + "-" + minecraftVersion
