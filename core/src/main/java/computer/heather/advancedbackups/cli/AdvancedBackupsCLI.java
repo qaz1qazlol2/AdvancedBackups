@@ -52,6 +52,7 @@ public class AdvancedBackupsCLI {
 
         CLIIOHelpers.info("Advanced Backups - 版本 " + AdvancedBackupsCLI.class.getPackage().getImplementationVersion());
         CLIIOHelpers.info("提示 : 这个模组不可以恢复AdvancedBackups3.0版本前的备份.");
+        CLIIOHelpers.info("输入对应选项前的数字后按下enter来确认你的选择.");
         CLIIOHelpers.info("寻找配置文件中...", false);
 
 
@@ -113,10 +114,10 @@ public class AdvancedBackupsCLI {
 
         if (flag) {
             String result = CLIIOHelpers.getSelectionFromList(
-                    "Backups from another mod have been found. These can be restored if you want.\nWould you want to work with these backups?",
-                    Arrays.asList(new String[]{"Use backups from AdvancedBackups", "Use backups from other mod"})
+                    "找到了别的模组生成的备份文件。如果你想的话这些文件也可以用来恢复存档。\n你打算用这些备份文件恢复存档吗?",
+                    Arrays.asList(new String[]{"使用AdvancedBackups生成的备份", "使用其他模组生成的备份"})
             );
-            if (result == "Use backups from other mod") {
+            if (result == "使用其他模组生成的备份") {
                 restoreOtherModZip(backupDir);
                 return;
             }
