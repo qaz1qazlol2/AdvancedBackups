@@ -140,14 +140,17 @@ public class AdvancedBackupsCLI {
         int backupDateIndex;
 
 
-        CLIIOHelpers.info("Do you want to export a backup, restore the entire world state at this point, or a singular file?");
+        CLIIOHelpers.info("你想将世界备份导出为一个压缩包，从备份文件还原整个世界，还是还原单个文件呢？");
+        CLIIOHelpers.info("第一个选项可以导出整个世界的压缩包，可以用来转移存档到另外一个版本的整合包内。");
+        CLIIOHelpers.info("第二个选项相当于回档，可以还原存档到触发备份那个时候的存档。适合用来一不小心操作导致炸档了后想要回到过去的情况。");
+        CLIIOHelpers.info("第三个选项允许你选择指定的文件回档，一般用不上。");
 
         String restore = CLIIOHelpers.getSelectionFromList(
-                "Enter a number.",
-                Arrays.asList(new String[]{"Export backup as zip", "Restore single file", "Restore entire world"})
+                "用数字键输入你的选择。",
+                Arrays.asList(new String[]{"导出世界备份文件为zip压缩文件", "Restore single file", "Restore entire world"})
         );
 
-        if ("Export backup as zip".equals(restore)) {
+        if ("导出世界备份文件为zip压缩文件".equals(restore)) {
             exportMode = true;
         }
 
@@ -160,7 +163,7 @@ public class AdvancedBackupsCLI {
         try {
             backupDateIndex = getBackupDate(backupDir, exportMode);
         } catch (IOException e) {
-            CLIIOHelpers.error("ERROR VIEWING BACKUPS!");
+            CLIIOHelpers.error("无法读取备份文件！");
             e.printStackTrace();
             return;
         }
@@ -172,11 +175,11 @@ public class AdvancedBackupsCLI {
 
 
         if (!CLIIOHelpers.confirmWarningMessage()) {
-            CLIIOHelpers.error("ABORTED - WILL NOT PROCEED.");
+            CLIIOHelpers.error("忽略 - 将不会继续操作！");
             return;
         }
 
-        CLIIOHelpers.info("Preparing...");
+        CLIIOHelpers.info("准备中...");
 
 
         switch (restore) {
@@ -217,7 +220,7 @@ public class AdvancedBackupsCLI {
                     }
                 }
             }
-            case "Export backup as zip": {
+            case "导出世界备份文件为zip压缩文件": {
 
                 CLIIOHelpers.info("Restoring to temporary directory...");
 
